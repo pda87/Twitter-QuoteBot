@@ -60,6 +60,9 @@ module.exports = {
       }
     }
   },
+  formatQuoteAuthorName: function(text) {
+    return (text == "" ? "Anon" : "#" + text.split(" ").join("").split(".").join(""));
+  },
   tweetAndruxNetQuote: function() {
     for(var i = 0; i < 1; i++) {
        var isQuoteTweetable = false;
@@ -67,7 +70,7 @@ module.exports = {
         quotesModule.getAndruxNetQuoteJSON(null, function(responseObject) {
               var quoteText = responseObject.quote;
               var quoteLength = quoteText.length;
-              var quoteAuthor = (responseObject.author == "" ? "Anon" : "#" + responseObject.author.split(" ").join(""));
+              var quoteAuthor = module.exports.formatQuoteAuthorName(responseObject.author);
               var quoteSource = "\r" + quoteAuthor;
 
               module.exports.formatQuoteAndTweet(quoteLength, quoteSource, quoteText, quoteAuthor);
@@ -93,7 +96,7 @@ module.exports = {
 
                   var quoteText = responseObject.quoteText.trimRight();
                   var quoteLength = quoteText.length;
-                  var quoteAuthor = (responseObject.quoteAuthor == "" ? "Anon" : "#" + responseObject.quoteAuthor.split(" ").join(""));
+                  var quoteAuthor = module.exports.formatQuoteAuthorName(responseObject.quoteAuthor);
                   var quoteSource = "\r" + quoteAuthor;
 
                   isQuoteTweetable = quoteLength <= tweetLimit;
@@ -121,7 +124,7 @@ module.exports = {
                   var responseItem = responseObject[0];
                   var quoteText = scapegoat.escape(responseItem.content.replace("<p>", "").replace("</p>", "").replace("\n", "").trimRight())
                         .split("&amp;#8217;").join("'");
-                  var quoteAuthor = (responseItem.title == "" ? "Anon" : "#" + responseItem.title.split(" ").join(""));
+                  var quoteAuthor = module.exports.formatQuoteAuthorName(responseItem.title);
 
                   var quoteLength = quoteText.length;
                   var quoteSource = "\r" + quoteAuthor;
