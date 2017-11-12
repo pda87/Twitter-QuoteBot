@@ -8,7 +8,7 @@ var scapegoat = require('scapegoat');
 
 var quotesModule = require('./quotesModule');
 
-var tweetLimit = 140;
+var tweetLimit = 280;
 
 var consumerKey: "",
 var consumerSecret: "",
@@ -41,7 +41,7 @@ module.exports = {
   formatQuoteAndTweet: function(quoteLength, quoteSource, quoteText, quoteAuthor) {
     var quoteSource = "\r" + quoteAuthor;
 
-    //Format the quote the best we can (with 140 characters!)
+    //Format the quote the best we can (with 280 characters!)
     if (quoteLength + quoteSource.length <= tweetLimit) {
       if (quoteLength + quoteSource.length + 13 <= tweetLimit) {
         this.sendTweet("\"" + quoteText + "\"" + "\r - " + quoteAuthor + "\r#Quote");
